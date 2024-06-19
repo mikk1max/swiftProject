@@ -18,22 +18,22 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set Default Scheme
+        id: set_default_scheme
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
-          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
-          echo $default > default
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.read)['project']['targets'][0]")
+          echo "::set-output name=default_scheme::$default"
           echo "Using default scheme: $default"
 
       - name: Debug Info
         run: |
           echo "Current directory contents:"
           ls -A
-          echo "Detected scheme: $(cat default)"
+          echo "Detected scheme: ${{ steps.set_default_scheme.outputs.default_scheme }}"
 
       - name: Build and Test
         env:
           scheme: ${{ steps.set_default_scheme.outputs.default_scheme }}
-          platform: iOS Simulator
         run: |
           # Determine whether to use workspace or project
           if [ -d "$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)" ]; then
@@ -52,7 +52,6 @@ jobs:
       - name: Run Tests
         env:
           scheme: ${{ steps.set_default_scheme.outputs.default_scheme }}
-          platform: iOS Simulator
         run: |
           # Determine whether to use workspace or project
           if [ -d "$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)" ]; then
@@ -79,8 +78,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set Default Scheme
+        id: set_default_scheme
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
-          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.read)['project']['targets'][0]")
           echo "::set-output name=default_scheme::$default"
           echo "Using default scheme: $default"
