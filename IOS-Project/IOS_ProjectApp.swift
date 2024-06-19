@@ -1,10 +1,3 @@
-//
-//  IOS_ProjectApp.swift
-//  IOS-Project
-//
-//  Created by Максим Шепета on 13/06/2024.
-//
-
 import SwiftUI
 
 @main

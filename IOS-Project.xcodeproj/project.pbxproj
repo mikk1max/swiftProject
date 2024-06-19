@@ -7,15 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360A43222C2056990046223D /* EditRecomendedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A43212C2056990046223D /* EditRecomendedView.swift */; };
+		8A02C7B72C210B690013F3FE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A02C7B62C210B690013F3FE /* MapView.swift */; };
+		8A362BDC2C1DE9CD006D03A3 /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A362BDB2C1DE9CD006D03A3 /* RecommendationsView.swift */; };
+		8A362BDE2C1DE9E5006D03A3 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A362BDD2C1DE9E5006D03A3 /* CalendarView.swift */; };
+		8A362BE22C1E11D8006D03A3 /* EditTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A362BE12C1E11D8006D03A3 /* EditTripView.swift */; };
 		8AE6227F2C1B3E9500F87051 /* IOS_ProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6227E2C1B3E9500F87051 /* IOS_ProjectApp.swift */; };
 		8AE622812C1B3E9500F87051 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622802C1B3E9500F87051 /* ContentView.swift */; };
 		8AE622832C1B3E9700F87051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE622822C1B3E9700F87051 /* Assets.xcassets */; };
 		8AE622862C1B3E9700F87051 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE622852C1B3E9700F87051 /* Preview Assets.xcassets */; };
 		8AE622882C1B3E9700F87051 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622872C1B3E9700F87051 /* Persistence.swift */; };
 		8AE6228B2C1B3E9700F87051 /* IOS_Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622892C1B3E9700F87051 /* IOS_Project.xcdatamodeld */; };
+		8AE622952C1B47C200F87051 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622912C1B47C200F87051 /* Trip+CoreDataClass.swift */; };
+		8AE622962C1B47C200F87051 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622922C1B47C200F87051 /* Trip+CoreDataProperties.swift */; };
+		8AE622972C1B47C200F87051 /* Place+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622932C1B47C200F87051 /* Place+CoreDataClass.swift */; };
+		8AE622982C1B47C200F87051 /* Place+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622942C1B47C200F87051 /* Place+CoreDataProperties.swift */; };
+		8AE6229B2C1B4F1600F87051 /* Route+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622992C1B4F1600F87051 /* Route+CoreDataClass.swift */; };
+		8AE6229C2C1B4F1600F87051 /* Route+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6229A2C1B4F1600F87051 /* Route+CoreDataProperties.swift */; };
+		8AE622A02C1B5FFC00F87051 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE6229F2C1B5FFC00F87051 /* AddTripView.swift */; };
+		8AE622A22C1B61A200F87051 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE622A12C1B61A200F87051 /* TripDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		360A43212C2056990046223D /* EditRecomendedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecomendedView.swift; sourceTree = "<group>"; };
+		8A02C7B62C210B690013F3FE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		8A362BDB2C1DE9CD006D03A3 /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
+		8A362BDD2C1DE9E5006D03A3 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		8A362BE12C1E11D8006D03A3 /* EditTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripView.swift; sourceTree = "<group>"; };
 		8AE6227B2C1B3E9500F87051 /* IOS-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE6227E2C1B3E9500F87051 /* IOS_ProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS_ProjectApp.swift; sourceTree = "<group>"; };
 		8AE622802C1B3E9500F87051 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +41,14 @@
 		8AE622852C1B3E9700F87051 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8AE622872C1B3E9700F87051 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8AE6228A2C1B3E9700F87051 /* IOS_Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IOS_Project.xcdatamodel; sourceTree = "<group>"; };
+		8AE622912C1B47C200F87051 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8AE622922C1B47C200F87051 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8AE622932C1B47C200F87051 /* Place+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8AE622942C1B47C200F87051 /* Place+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8AE622992C1B4F1600F87051 /* Route+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8AE6229A2C1B4F1600F87051 /* Route+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8AE6229F2C1B5FFC00F87051 /* AddTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripView.swift; sourceTree = "<group>"; };
+		8AE622A12C1B61A200F87051 /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +65,12 @@
 		8AE622722C1B3E9500F87051 = {
 			isa = PBXGroup;
 			children = (
+				8AE622992C1B4F1600F87051 /* Route+CoreDataClass.swift */,
+				8AE6229A2C1B4F1600F87051 /* Route+CoreDataProperties.swift */,
+				8AE622912C1B47C200F87051 /* Trip+CoreDataClass.swift */,
+				8AE622922C1B47C200F87051 /* Trip+CoreDataProperties.swift */,
+				8AE622932C1B47C200F87051 /* Place+CoreDataClass.swift */,
+				8AE622942C1B47C200F87051 /* Place+CoreDataProperties.swift */,
 				8AE6227D2C1B3E9500F87051 /* IOS-Project */,
 				8AE6227C2C1B3E9500F87051 /* Products */,
 			);
@@ -61,6 +93,13 @@
 				8AE622872C1B3E9700F87051 /* Persistence.swift */,
 				8AE622892C1B3E9700F87051 /* IOS_Project.xcdatamodeld */,
 				8AE622842C1B3E9700F87051 /* Preview Content */,
+				8AE6229F2C1B5FFC00F87051 /* AddTripView.swift */,
+				8AE622A12C1B61A200F87051 /* TripDetailView.swift */,
+				8A362BDB2C1DE9CD006D03A3 /* RecommendationsView.swift */,
+				8A362BDD2C1DE9E5006D03A3 /* CalendarView.swift */,
+				8A362BE12C1E11D8006D03A3 /* EditTripView.swift */,
+				360A43212C2056990046223D /* EditRecomendedView.swift */,
+				8A02C7B62C210B690013F3FE /* MapView.swift */,
 			);
 			path = "IOS-Project";
 			sourceTree = "<group>";
@@ -145,8 +184,21 @@
 			files = (
 				8AE622882C1B3E9700F87051 /* Persistence.swift in Sources */,
 				8AE6228B2C1B3E9700F87051 /* IOS_Project.xcdatamodeld in Sources */,
+				8AE622952C1B47C200F87051 /* Trip+CoreDataClass.swift in Sources */,
+				8AE6229B2C1B4F1600F87051 /* Route+CoreDataClass.swift in Sources */,
+				8AE6229C2C1B4F1600F87051 /* Route+CoreDataProperties.swift in Sources */,
+				8AE622962C1B47C200F87051 /* Trip+CoreDataProperties.swift in Sources */,
+				8AE622972C1B47C200F87051 /* Place+CoreDataClass.swift in Sources */,
+				8A362BDC2C1DE9CD006D03A3 /* RecommendationsView.swift in Sources */,
+				8AE622A02C1B5FFC00F87051 /* AddTripView.swift in Sources */,
+				8A02C7B72C210B690013F3FE /* MapView.swift in Sources */,
+				8AE622A22C1B61A200F87051 /* TripDetailView.swift in Sources */,
+				360A43222C2056990046223D /* EditRecomendedView.swift in Sources */,
+				8AE622982C1B47C200F87051 /* Place+CoreDataProperties.swift in Sources */,
 				8AE622812C1B3E9500F87051 /* ContentView.swift in Sources */,
 				8AE6227F2C1B3E9500F87051 /* IOS_ProjectApp.swift in Sources */,
+				8A362BE22C1E11D8006D03A3 /* EditTripView.swift in Sources */,
+				8A362BDE2C1DE9E5006D03A3 /* CalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

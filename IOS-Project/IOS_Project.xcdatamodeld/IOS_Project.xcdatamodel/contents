@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Place" representedClassName="Place" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="place_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="toRoute" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="toPlace" inverseEntity="Route"/>
+        <relationship name="toTrip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="toPlace" inverseEntity="Trip"/>
     </entity>
-    <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-    </elements>
+    <entity name="Route" representedClassName="Route" syncable="YES">
+        <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="route_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="transportType" optional="YES" attributeType="String"/>
+        <relationship name="toPlace" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Place" inverseName="toRoute" inverseEntity="Place"/>
+        <relationship name="toTrip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="toRoute" inverseEntity="Trip"/>
+    </entity>
+    <entity name="Trip" representedClassName="Trip" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="dateFrom" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateTo" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="trip_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="toPlace" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Place" inverseName="toTrip" inverseEntity="Place"/>
+        <relationship name="toRoute" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="toTrip" inverseEntity="Route"/>
+    </entity>
 </model>

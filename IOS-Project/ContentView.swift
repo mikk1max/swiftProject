@@ -1,86 +1,106 @@
-//
-//  ContentView.swift
-//  IOS-Project
-//
-//  Created by Максим Шепета on 13/06/2024.
-//
-
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Trip.trip_id, ascending: true)]) private var items: FetchedResults<Trip>
+    
+    @State private var showingAddTripView = false
+    @State private var selectedDate = Date()
+    @State private var selectedTrip: Trip? = nil
+    @State private var showingEditTripView = false
+    
+    @Environment(\.managedObjectContext) private var managedObjectContext
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+        TabView {
+            NavigationView {
+                List {
+                    ForEach(items) { item in
+                        NavigationLink(destination: TripDetailView(trip: item)) {
+                            VStack(alignment: .leading) {
+                                Text("\(item.country ?? "Unknown Country"), \(item.city ?? "Unknown City")")
+                                    .font(.headline)
+                                HStack {
+                                    Text("From: \(formattedDate(item.dateFrom))")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    Text("To: \(formattedDate(item.dateTo))")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                        }
+                        .contextMenu {
+                            Button("Edit") {
+                                selectedTrip = item
+                                showingEditTripView = true
+                            }
+
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            showingAddTripView.toggle()
+                        }) {
+                            Image(systemName: "plus")
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                .sheet(isPresented: $showingAddTripView) {
+                    AddTripView(isPresented: $showingAddTripView)
+                        .environment(\.managedObjectContext, managedObjectContext)
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                .sheet(isPresented: $showingEditTripView) {
+                    if let trip = selectedTrip {
+                        EditTripView(trip: trip, isPresented: $showingEditTripView)
+                            .environment(\.managedObjectContext, managedObjectContext)
                     }
                 }
+                .navigationTitle("My trips")
+//                .navigationBarTitleDisplayMode(.inline)
             }
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            .tabItem {
+                Image(systemName: "list.dash")
+                Text("Trips")
             }
+
+            RecommendationsView()
+                 .tabItem {
+                     Image(systemName: "star")
+                     Text("Recommendations")
+                 }
+
+             CalendarView(selectedDate: $selectedDate, items: items)
+                 .tabItem {
+                     Image(systemName: "calendar")
+                     Text("Calendar")
+                 }
         }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { items[$0] }.forEach(managedObjectContext.delete)
 
             do {
-                try viewContext.save()
+                try managedObjectContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
-}
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-#Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    
+    private func formattedDate(_ date: Date?) -> String {
+        guard let date = date else { return "Unknown Date" }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
+    }
 }
