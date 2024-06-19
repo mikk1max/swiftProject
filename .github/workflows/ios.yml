@@ -2,18 +2,20 @@ name: iOS starter workflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
+  build_and_test:
     name: Build and Test default scheme using any available iPhone simulator
     runs-on: macos-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set Default Scheme
         run: |
@@ -26,51 +28,59 @@ jobs:
         run: |
           echo "Current directory contents:"
           ls -A
-          echo "Detected file to build: $file_to_build"
           echo "Detected scheme: $(cat default)"
 
-      - name: Build
+      - name: Build and Test
         env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
+          scheme: ${{ steps.set_default_scheme.outputs.default_scheme }}
+          platform: iOS Simulator
         run: |
-          # Check the raw output of xcrun xctrace list devices
-          xcrun xctrace list devices
+          # Determine whether to use workspace or project
+          if [ -d "$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)" ]; then
+            workspace_or_project="-workspace $(pwd)/$(ls -A | grep -i \\.xcworkspace\$)"
+          else
+            workspace_or_project="-project $(pwd)/$(ls -A | grep -i \\.xcodeproj\$)"
+          fi
 
-          # Refine the parsing command to match the output format
-          device=$(xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//")
+          # Select a device from the available simulators
+          device=$(xcrun simctl list devices --json | jq -r '.devices | to_entries[] | .value[] | select(.name | test("iPhone")) | .name' | head -n 1)
           echo "Selected device: $device"
 
-          if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
-          if [ -d "$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)" ]; then
-            filetype_parameter="workspace"
-            file_to_build="$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)"
-          else
-            filetype_parameter="project"
-            file_to_build="$(pwd)/$(ls -A | grep -i \\.xcodeproj\$)"
-          fi
-          file_to_build=$(echo "$file_to_build" | awk '{$1=$1;print}')
-          xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+          # Build
+          xcodebuild build-for-testing -scheme "$scheme" $workspace_or_project -destination "platform=iOS Simulator,name=$device"
 
-      - name: Test
+      - name: Run Tests
         env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
+          scheme: ${{ steps.set_default_scheme.outputs.default_scheme }}
+          platform: iOS Simulator
         run: |
-          # Check the raw output of xcrun xctrace list devices
-          xcrun xctrace list devices
+          # Determine whether to use workspace or project
+          if [ -d "$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)" ]; then
+            workspace_or_project="-workspace $(pwd)/$(ls -A | grep -i \\.xcworkspace\$)"
+          else
+            workspace_or_project="-project $(pwd)/$(ls -A | grep -i \\.xcodeproj\$)"
+          fi
 
-          # Refine the parsing command to match the output format
-          device=$(xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//")
+          # Select a device from the available simulators
+          device=$(xcrun simctl list devices --json | jq -r '.devices | to_entries[] | .value[] | select(.name | test("iPhone")) | .name' | head -n 1)
           echo "Selected device: $device"
 
-          if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
-          if [ -d "$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)" ]; then
-            filetype_parameter="workspace"
-            file_to_build="$(pwd)/$(ls -A | grep -i \\.xcworkspace\$)"
-          else
-            filetype_parameter="project"
-            file_to_build="$(pwd)/$(ls -A | grep -i \\.xcodeproj\$)"
-          fi
-          file_to_build=$(echo "$file_to_build" | awk '{$1=$1;print}')
-          xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+          # Test
+          xcodebuild test-without-building -scheme "$scheme" $workspace_or_project -destination "platform=iOS Simulator,name=$device"
+
+  set_default_scheme:
+    name: Set Default Scheme
+    runs-on: macos-latest
+    outputs:
+      default_scheme: ${{ steps.set_default_scheme.outputs.default_scheme }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set Default Scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo "::set-output name=default_scheme::$default"
+          echo "Using default scheme: $default"
