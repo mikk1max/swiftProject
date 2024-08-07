@@ -64,6 +64,3 @@ We would like to thank the following libraries and resources:
 </p>
 
 
----
-
-Feel free to customize this README.md to fit your project specifics and ensure it showcases your iOS travel app effectively on GitHub!
