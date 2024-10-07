@@ -1,4 +1,4 @@
-# iOS Travel Management App
+# iOS Travel Management App 
 
 IOS-Project is an iOS application designed to enhance your travel experience by seamlessly managing your trips and favorite places. Built using Core Data for robust data storage, IOS-Project ensures your travel memories are securely stored and easily accessible.
 
@@ -36,16 +36,6 @@ To install IOS-Project on your iOS device:
 
 Contributions are welcome! If you have ideas for features or find any issues, please open an issue or submit a pull request.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
-
-## Contact
-
-For questions or support, contact the maintainers:
-
-- Email: maksim.shepeta@gmail.com
-
 ## Acknowledgments
 
 We would like to thank the following libraries and resources:
@@ -63,4 +53,8 @@ We would like to thank the following libraries and resources:
   <img src="./screenshots/calendar-screen.png" alt="Screenshot 4" width="200">
 </p>
 
+## Contact
 
+For questions or support, contact the maintainers: maksim.shepeta@gmail.com
+
+<a href="https://www.buymeacoffee.com/mikkimax" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
